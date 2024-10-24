@@ -1,0 +1,60 @@
+﻿@model List<MyApp.Models.Item>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Index</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Serial Number
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Clients
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Price.ToString("N2")
+                </td>
+                <td>
+                    @item.SerialNumber?.Name
+                </td>
+                <td>
+                    @item.Category?.Name
+                </td>
+                <td>
+                    @string.Join(", ", item.ItemClients.Select(c => c.Client.Name))
+                </td>
+                <td class="d-flex gap-1 align-items-center">
+                    <a asp-route-id="@item.Id" asp-action="edit">
+                        edit
+                    </a>
+                    <a asp-route-id="@item.Id" asp-action="delete">
+                        delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
